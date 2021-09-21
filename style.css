@@ -1,0 +1,219 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    display: grid;
+    place-items: center;
+    padding-top: 10vh;
+    font-family: "Montserrat", Arial, sans-serif;
+  }
+  
+  .errors {
+    color: #de1616;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all ease-in-out 0.3s;
+    opacity: 0;
+  }
+  .errors.flash {
+    opacity: 1;
+  }
+  
+  .container {
+    width: 90%;
+    max-width: 1024px;
+    min-height: calc(70vw * (2 / 3));
+    background: #fff;
+    box-shadow: 0px 1.1335145235px 2.6448674202px 0px #0000000a, 0px 2.8667433262px 6.6890678406px 0px #0000000f, 0px 5.847887516px 13.6450710297px 0px #00000012, 0px 12.045542717px 28.1062679291px 0px #00000017, 0px 33px 77px 0px #00000021;
+    border-radius: 16px;
+    display: flex;
+    flex-flow: row wrap;
+    position: relative;
+  }
+  .container::after {
+    content: "";
+    height: 100%;
+    width: 0.5px;
+    background: #595959;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .container .list-container {
+    --m-height: calc(90vh * (2 / 3));
+    width: 50%;
+    min-height: calc(70vh * (2 / 3));
+    max-height: var(--m-height);
+    height: 100%;
+    position: relative;
+  }
+  .container .list-container h2 {
+    width: 100%;
+    margin: 0;
+    padding: 8px 16px;
+    height: 50px;
+  }
+  .container .list-container .list {
+    height: calc(var(--m-height) - 50px);
+    padding: 16px;
+    padding-top: 0;
+    overflow-y: scroll;
+    scrollbar-width: 12px;
+    scrollbar-color: var(--color);
+    position: relative;
+  }
+  .container .list-container .list::-webkit-scrollbar {
+    width: 12px;
+  }
+  .container .list-container .list::-webkit-scrollbar-thumb {
+    background: var(--color);
+    border-radius: 25px;
+  }
+  .container .list-container .list .content {
+    background-color: var(--color);
+    padding: 12px;
+    margin: 16px 0;
+    border-radius: 8px;
+  }
+  .container .list-container .list .content:first-child {
+    margin-top: 0;
+  }
+  .container .list-container .list .content h3 {
+    margin: 0 0 8px;
+  }
+  .container .list-container .list .content p {
+    width: 100%;
+    margin: 0;
+  }
+  
+  .is-dragged {
+    opacity: 0.5;
+  }
+  
+  #editor {
+    width: 100%;
+    font-family: "Montserrat", Arial, sans-serif;
+    font-size: 14px;
+    border: none;
+    overflow: auto;
+    resize: none;
+    border-radius: 4px;
+    padding: 8px 4px;
+  }
+  #editor::-webkit-scrollbar {
+    width: 8px;
+  }
+  #editor::-webkit-scrollbar-thumb {
+    background-color: #b8e2ec;
+    border-radius: 16px;
+  }
+  
+  #editor:focus {
+    outline: none;
+  }
+  
+  .commands {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    text-decoration: underline;
+    cursor: pointer;
+    color: #595959;
+    transition: all ease-in-out 0.2s;
+    user-select: none;
+  }
+  .commands:hover {
+    color: #000;
+  }
+  
+  .menu {
+    background: #fff;
+    width: fit-content;
+    padding: 8px 16px;
+    border-radius: 8px 0 8px 8px;
+    position: absolute;
+    z-index: 1;
+    top: 32px;
+    right: 16px;
+    box-shadow: 0 1.1px 2.2px rgba(0, 0, 0, 0.028), 0 2.7px 5.3px rgba(0, 0, 0, 0.04), 0 5px 10px rgba(0, 0, 0, 0.05), 0 8.9px 17.9px rgba(0, 0, 0, 0.06), 0 16.7px 33.4px rgba(0, 0, 0, 0.072), 0 40px 80px rgba(0, 0, 0, 0.1);
+  }
+  .menu ul {
+    list-style: none;
+    padding: 0;
+  }
+  .menu ul li {
+    text-decoration: underline;
+    margin: 4px 0;
+    color: #595959;
+    transition: all ease-in-out 0.2s;
+    cursor: pointer;
+  }
+  .menu ul li:hover {
+    color: #000;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .delete-modal {
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    padding: 16px 32px;
+    border-radius: 8px;
+  }
+  .delete-modal-bg {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    inset: 0;
+  }
+  .delete-modal h4 {
+    margin: 8px 0;
+  }
+  .delete-modal > div {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 16px;
+  }
+  .delete-modal .btn {
+    border: none;
+    background: none;
+    color: #595959;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all ease-in-out 0.3s;
+    cursor: pointer;
+  }
+  .delete-modal .btn:hover {
+    opacity: 0.8;
+  }
+  .delete-modal .delete {
+    background: firebrick;
+    color: #fff;
+  }
+  .delete-modal .cancel {
+    border: 1px solid #595959;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      flex-flow: column wrap;
+    }
+    .container::after {
+      content: none;
+    }
+    .container .list-container {
+      width: 100%;
+      min-height: 0;
+    }
+  }
